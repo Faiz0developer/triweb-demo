@@ -3,15 +3,21 @@ import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-type TInputProps={
-  onChange:(val:any)=> void;
-  title:string;
-  onCLick:any; 
-  value:string; 
-  placeholder:string;
-}
+type TInputProps = {
+  onChange: (val: any) => void;
+  title: string;
+  onCLick: any;
+  value: string;
+  placeholder: string;
+};
 
-const Input = ({ onChange, title, onCLick, value, placeholder }: TInputProps) => {
+const Input = ({
+  onChange,
+  title,
+  onCLick,
+  value,
+  placeholder,
+}: TInputProps) => {
   return (
     <div>
       <input
@@ -34,7 +40,8 @@ const Input = ({ onChange, title, onCLick, value, placeholder }: TInputProps) =>
 export default function Home() {
   const [register, setRegister] = useState("");
   const [resolve, setResolve] = useState("");
-  const [transfer, setTransfer] = useState("");
+  const [transferName, setTransferName] = useState("");
+  const [transferTO, setTransferTo] = useState("");
 
   const registerSubmitHandler = (_e: any) => {
     console.log(register);
@@ -45,8 +52,9 @@ export default function Home() {
     setResolve("");
   };
   const transferSubmitHandler = () => {
-    console.log(transfer);
-    setTransfer("");
+    console.log({transferName, transferTO});
+    setTransferName("");
+    setTransferTo("");
   };
 
   return (
@@ -55,29 +63,43 @@ export default function Home() {
     >
       <h1 className="text-2xl">Nameservice</h1>
       <div className="flex flex-col gap-10">
-      <Input
-        title="Register"
-        value={register}
-        placeholder="Enter Name"
-        onChange={(e: any) => setRegister(e.target.value)}
-        onCLick={registerSubmitHandler}
-      />
-      <Input
-        title="Resolve"
-        value={resolve}
-        placeholder="Enter Name"
-        onChange={(e: any) => setResolve(e.target.value)}
-        onCLick={resolveSubmitHandler}
-      />
-      <Input
-        title="Transfer"
-        value={transfer}
-        placeholder="Enter Name"
-        onChange={(e: any) => setTransfer(e.target.value)}
-        onCLick={transferSubmitHandler}
-      />
+        <Input
+          title="Register"
+          value={register}
+          placeholder="Enter Name"
+          onChange={(e: any) => setRegister(e.target.value)}
+          onCLick={registerSubmitHandler}
+        />
+        <Input
+          title="Resolve"
+          value={resolve}
+          placeholder="Enter Name"
+          onChange={(e: any) => setResolve(e.target.value)}
+          onCLick={resolveSubmitHandler}
+        />
+        <div>
+          <input
+            type="text"
+            onChange={(e: any) => setTransferName(e.target.value)}
+            value={transferName}
+            className="px-3 py-2 rounded mr-2 focus:outline-none focus:border focus:border-[#0c66e4]"
+            placeholder="Name"
+          />
+          <input
+            type="text"
+            onChange={(e: any) => setTransferTo(e.target.value)}
+            value={transferTO}
+            className="px-3 py-2 rounded mr-2 focus:outline-none focus:border focus:border-[#0c66e4]"
+            placeholder="transfer to"
+          />
+          <button
+            className="bg-[#0c66e4] rounded text-white px-3 py-1.5"
+            onClick={transferSubmitHandler}
+          >
+            Transfer
+          </button>
+        </div>
       </div>
-      
     </main>
   );
 }
